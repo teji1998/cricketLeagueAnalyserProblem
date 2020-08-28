@@ -76,5 +76,17 @@ public class CricketLeagueAnalyserTest {
 		} catch (CricketLeagueAnalyserException e ) { }
 	}
 
+	// Test case for finding the top striking rate with great average in descending order
+	@Test
+	public void givenMostRunsCSVFile_whenSortedByBestStrikingRateWithGreatAverage_shouldReturnSortedResult() {
+		try {
+			CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
+			cricketLeagueAnalyser.loadLeagueData(CricketLeagueAnalyser.CricketerSkill.BATTING, IPL_MOST_RUN_CSV_FILE_PATH);
+			String sortedIPLData = cricketLeagueAnalyser.getGreatAverageWithBestStrikingRateWiseSortedIPLData();
+			IPLMostRunsCSV[] iplCSV =  new Gson().fromJson(sortedIPLData, IPLMostRunsCSV[].class);
+			Assert.assertEquals("Ishant Sharma", iplCSV[0].player);
+		} catch (CricketLeagueAnalyserException e ) { }
+	}
+
 }
 
