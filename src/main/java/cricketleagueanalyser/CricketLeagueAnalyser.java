@@ -17,12 +17,21 @@ public class CricketLeagueAnalyser {
 		return leagueMap.size();
 	}
 
-
 	public String getBattingAverageWiseSortedIPLData() throws CricketLeagueAnalyserException {
 		if (leagueMap  == null || leagueMap .size() == 0) {
 			throw new CricketLeagueAnalyserException("No Census Data", CricketLeagueAnalyserException.ExceptionType.NO_CRICKET_DATA);
 		}
 		Comparator<LeagueDAO> iplComparator = Comparator.comparing(iplFactSheet -> iplFactSheet.average);
+		List<LeagueDAO> leagueDAOList = leagueMap.values().stream().collect(Collectors.toList());
+		leagueDAOList = sortingInDescendingOrder(iplComparator, leagueDAOList);
+		return new Gson().toJson(leagueDAOList);
+	}
+
+	public String getStrikeRateAverageWiseSortedIPLData() throws CricketLeagueAnalyserException {
+		if (leagueMap  == null || leagueMap .size() == 0) {
+			throw new CricketLeagueAnalyserException("No Census Data", CricketLeagueAnalyserException.ExceptionType.NO_CRICKET_DATA);
+		}
+		Comparator<LeagueDAO> iplComparator = Comparator.comparing(iplFactSheet -> iplFactSheet.strikeRate);
 		List<LeagueDAO> leagueDAOList = leagueMap.values().stream().collect(Collectors.toList());
 		leagueDAOList = sortingInDescendingOrder(iplComparator, leagueDAOList);
 		return new Gson().toJson(leagueDAOList);

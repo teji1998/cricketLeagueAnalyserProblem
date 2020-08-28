@@ -30,14 +30,27 @@ public class CricketLeagueAnalyserTest {
 
 	// Test case for finding the Batting average in descending order
 	@Test
-	public void givenMostRunsCSVFile_whenSortedOnBattingAverage_shouldReturnSortedResult() {
+	public void givenMostRunsCSVFile_whenSortedByBattingAverage_shouldReturnSortedResult() {
 		try {
 			CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
 			cricketLeagueAnalyser.loadLeagueData(CricketLeagueAnalyser.CricketerSkill.BATTING, IPL_MOST_RUN_CENSUS_CSV_FILE_PATH);
-			String sortediplData = cricketLeagueAnalyser.getBattingAverageWiseSortedIPLData();
-			IPLMostRunsCSV[] iplCSV =  new Gson().fromJson(sortediplData, IPLMostRunsCSV[].class);
+			String sortedIPLData = cricketLeagueAnalyser.getBattingAverageWiseSortedIPLData();
+			IPLMostRunsCSV[] iplCSV =  new Gson().fromJson(sortedIPLData, IPLMostRunsCSV[].class);
 			Assert.assertEquals("MS Dhoni", iplCSV[0].player);
 		} catch (CricketLeagueAnalyserException e ) { }
 	}
+
+	// Test case for finding the Strike Rate in descending order
+	@Test
+	public void givenMostRunsCSVFile_whenSortedByStrikeRate_shouldReturnSortedResult() {
+		try {
+			CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
+			cricketLeagueAnalyser.loadLeagueData(CricketLeagueAnalyser.CricketerSkill.BATTING, IPL_MOST_RUN_CENSUS_CSV_FILE_PATH);
+			String sortedIPLData = cricketLeagueAnalyser.getStrikeRateAverageWiseSortedIPLData();
+			IPLMostRunsCSV[] iplCSV =  new Gson().fromJson(sortedIPLData, IPLMostRunsCSV[].class);
+			Assert.assertEquals("Ishant Sharma", iplCSV[0].player);
+		} catch (CricketLeagueAnalyserException e ) { }
+	}
+
 }
 
