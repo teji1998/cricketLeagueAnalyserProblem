@@ -208,6 +208,16 @@ public class CricketLeagueAnalyserTest {
 		} catch (CricketLeagueAnalyserException e ) { }
 	}
 
-
+	//To check cricketers with minimum hundreds and fifty and best batting average
+	@Test
+	public void givenMostRunsCSVFile_whenSortedByMinimumHundredsAndFiftyAndBestBattingAverageWise_shouldReturnSortedResult() {
+		try {
+			CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
+			cricketLeagueAnalyser.loadLeagueData(CricketLeagueAnalyser.CricketerSkill.BATTING, IPL_MOST_RUN_CSV_FILE_PATH);
+			String sortedIPLData = cricketLeagueAnalyser.getMinimumHundredAndMinimumFiftyWithBestBattingAverageWiseSortedIPLData();
+			IPLMostRunsCSV[] iplCSV = new Gson().fromJson(sortedIPLData, IPLMostRunsCSV[].class);
+			Assert.assertEquals("Marcus Stoinis", iplCSV[0].player);
+		} catch (CricketLeagueAnalyserException e ) { }
+	}
 }
 

@@ -175,6 +175,17 @@ public class CricketLeagueAnalyser {
 		return new Gson().toJson(leagueDAOList);
 	}
 
+	public String getMinimumHundredAndMinimumFiftyWithBestBattingAverageWiseSortedIPLData() throws CricketLeagueAnalyserException {
+		if (leagueMap == null || leagueMap .size() == 0) {
+			throw new CricketLeagueAnalyserException("No Cricket Data", CricketLeagueAnalyserException.ExceptionType.NO_CRICKET_DATA);
+		}
+		Comparator<LeagueDAO> minimumHalfCenturyAndCenturyComparator = Comparator.comparing(iplFactSheet -> iplFactSheet.centuries * 100 + iplFactSheet.halfCenturies * 50 == 0);
+		Comparator<LeagueDAO> averageComparator = Comparator.comparing(iplFactSheet -> iplFactSheet.average);
+		List<LeagueDAO> leagueDAOList = leagueMap.values().stream().collect(Collectors.toList());
+		leagueDAOList = sortingInDescendingOrder(minimumHalfCenturyAndCenturyComparator.thenComparing(averageComparator), leagueDAOList);
+		return new Gson().toJson(leagueDAOList);
+	}
+
 	private static List<LeagueDAO> sortingInDescendingOrder(Comparator<LeagueDAO> iplComparator, List<LeagueDAO> iplList) {
 		for (int i = 0; i < iplList.size()-1; i++) {
 			for (int j =0; j< iplList.size() -i -1; j++) {
