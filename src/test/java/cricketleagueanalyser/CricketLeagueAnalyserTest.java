@@ -88,5 +88,17 @@ public class CricketLeagueAnalyserTest {
 		} catch (CricketLeagueAnalyserException e ) { }
 	}
 
+	// Test case for finding the maximum runs with great average in descending order
+	@Test
+	public void givenMostRunsCSVFile_whenSortedByMaximumRunsWithGreatAverage_shouldReturnSortedResult() {
+		try {
+			CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
+			cricketLeagueAnalyser.loadLeagueData(CricketLeagueAnalyser.CricketerSkill.BATTING, IPL_MOST_RUN_CSV_FILE_PATH);
+			String sortedIPLData = cricketLeagueAnalyser.getMaximumRunsWithBestAverageWiseSortedIPLData();
+			IPLMostRunsCSV[] iplCSV =  new Gson().fromJson(sortedIPLData, IPLMostRunsCSV[].class);
+			Assert.assertEquals("David Warner", iplCSV[0].player);
+		} catch (CricketLeagueAnalyserException e ) { }
+	}
+
 }
 

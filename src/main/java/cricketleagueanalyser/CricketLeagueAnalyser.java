@@ -69,9 +69,18 @@ public class CricketLeagueAnalyser {
 		return new Gson().toJson(leagueDAOList);
 	}
 
+	public String getMaximumRunsWithBestAverageWiseSortedIPLData() throws CricketLeagueAnalyserException {
+		if (leagueMap  == null || leagueMap .size() == 0) {
+			throw new CricketLeagueAnalyserException("No Census Data", CricketLeagueAnalyserException.ExceptionType.NO_CRICKET_DATA);
+		}
+		Comparator<LeagueDAO> averageComparator = Comparator.comparing(iplFactSheet -> iplFactSheet.average);
+		Comparator<LeagueDAO> runsComparator = Comparator.comparing(iplFactSheet -> iplFactSheet.runs);
+		List<LeagueDAO> leagueDAOList = leagueMap.values().stream().collect(Collectors.toList());
+		leagueDAOList = sortingInDescendingOrder(runsComparator.thenComparing(averageComparator), leagueDAOList);
+		return new Gson().toJson(leagueDAOList);
+	}
 
-
-	private static <LeagueDAO> List<LeagueDAO> sortingInDescendingOrder(Comparator<LeagueDAO> iplComparator, List<LeagueDAO> iplList) {
+	private static List<LeagueDAO> sortingInDescendingOrder(Comparator<LeagueDAO> iplComparator, List<LeagueDAO> iplList) {
 		for (int i = 0; i < iplList.size()-1; i++) {
 			for (int j =0; j< iplList.size() -i -1; j++) {
 				LeagueDAO cricketer1 = iplList.get(j);
