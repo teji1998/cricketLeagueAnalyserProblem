@@ -64,5 +64,17 @@ public class CricketLeagueAnalyserTest {
 		} catch (CricketLeagueAnalyserException e ) { }
 	}
 
+	// Test case for finding the maximum sixes and fours with top striking rate in descending order
+	@Test
+	public void givenMostRunsCSVFile_whenSortedBySixesAndFoursWithStrikingRate_shouldReturnSortedResult() {
+		try {
+			CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
+			cricketLeagueAnalyser.loadLeagueData(CricketLeagueAnalyser.CricketerSkill.BATTING, IPL_MOST_RUN_CSV_FILE_PATH);
+			String sortedIPLData = cricketLeagueAnalyser.getMaximumSixesAndFoursWithBestStrikingRateWiseSortedIPLData();
+			IPLMostRunsCSV[] iplCSV =  new Gson().fromJson(sortedIPLData, IPLMostRunsCSV[].class);
+			Assert.assertEquals("Andre Russell", iplCSV[0].player);
+		} catch (CricketLeagueAnalyserException e ) { }
+	}
+
 }
 
