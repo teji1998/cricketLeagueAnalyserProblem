@@ -183,5 +183,17 @@ public class CricketLeagueAnalyserTest {
 			Assert.assertEquals("MS Dhoni", iplCSV[0].player);
 		} catch (CricketLeagueAnalyserException e ) { }
 	}
+
+	//To find all rounder
+	@Test
+	public void givenMostRunsCSVFile_whenSortedByRunsAndWicketWise_shouldReturnSortedResult() {
+		try {
+			CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
+			cricketLeagueAnalyser.loadLeagueData(CricketLeagueAnalyser.CricketerSkill.BATTING, IPL_MOST_RUN_CSV_FILE_PATH, IPL_MOST_WICKETS_CSV_FILE_PATH);
+			String sortedIPLData = cricketLeagueAnalyser.getAllRounderWiseSortedIPLData();
+			IPLMostRunsCSV[] iplCSV = new Gson().fromJson(sortedIPLData, IPLMostRunsCSV[].class);
+			Assert.assertEquals("David Warner", iplCSV[0].player);
+		} catch (CricketLeagueAnalyserException e ) { }
+	}
 }
 
