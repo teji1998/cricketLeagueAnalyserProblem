@@ -195,5 +195,19 @@ public class CricketLeagueAnalyserTest {
 			Assert.assertEquals("David Warner", iplCSV[0].player);
 		} catch (CricketLeagueAnalyserException e ) { }
 	}
+
+	//To check cricketers with maximum hundred and best batting average
+	@Test
+	public void givenMostRunsCSVFile_whenSortedByMaximumHundredAndBestBattingAverageWise_shouldReturnSortedResult() {
+		try {
+			CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
+			cricketLeagueAnalyser.loadLeagueData(CricketLeagueAnalyser.CricketerSkill.BATTING, IPL_MOST_RUN_CSV_FILE_PATH);
+			String sortedIPLData = cricketLeagueAnalyser.getMaximumHundredAndBattingAverageWiseSortedIPLData();
+			IPLMostRunsCSV[] iplCSV = new Gson().fromJson(sortedIPLData, IPLMostRunsCSV[].class);
+			Assert.assertEquals("David Warner", iplCSV[0].player);
+		} catch (CricketLeagueAnalyserException e ) { }
+	}
+
+
 }
 
