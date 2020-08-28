@@ -171,5 +171,17 @@ public class CricketLeagueAnalyserTest {
 			Assert.assertEquals("Imran Tahir", iplCSV[0].player);
 		} catch (CricketLeagueAnalyserException e ) { }
 	}
+
+	// Test case for finding cricketer with best bowling average and batting average
+	@Test
+	public void givenMostRunsCSVFile_whenSortedByBowlingAndBattingAverageWise_shouldReturnSortedResult() {
+		try {
+			CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
+			cricketLeagueAnalyser.loadLeagueData(CricketLeagueAnalyser.CricketerSkill.BATTING, IPL_MOST_RUN_CSV_FILE_PATH, IPL_MOST_WICKETS_CSV_FILE_PATH);
+			String sortedIPLData = cricketLeagueAnalyser.getBestBowlerAndBestBatterWiseSortedIPLData();
+			IPLMostRunsCSV[] iplCSV = new Gson().fromJson(sortedIPLData, IPLMostRunsCSV[].class);
+			Assert.assertEquals("MS Dhoni", iplCSV[0].player);
+		} catch (CricketLeagueAnalyserException e ) { }
+	}
 }
 

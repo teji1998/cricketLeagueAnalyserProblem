@@ -131,6 +131,17 @@ public class CricketLeagueAnalyser {
 		return new Gson().toJson(leagueDAOList);
 	}
 
+	public String getBestBowlerAndBestBatterWiseSortedIPLData() throws CricketLeagueAnalyserException {
+		if (leagueMap == null || leagueMap .size() == 0) {
+			throw new CricketLeagueAnalyserException("No Cricket Data", CricketLeagueAnalyserException.ExceptionType.NO_CRICKET_DATA);
+		}
+		Comparator<LeagueDAO> battingAverageComparator = Comparator.comparing(iplFactSheet -> iplFactSheet.average);
+		Comparator<LeagueDAO> bowlingAverageComparator = Comparator.comparing(iplFactSheet -> iplFactSheet.bowlingAverage);
+		List<LeagueDAO> leagueDAOList = leagueMap.values().stream().collect(Collectors.toList());
+		leagueDAOList = sortingInDescendingOrder(battingAverageComparator.thenComparing(bowlingAverageComparator), leagueDAOList);
+		return new Gson().toJson(leagueDAOList);
+	}
+
 	public String getBowlersTakingMaximumWicketsWithBestBowlingAverageWiseSortedIPLData() throws CricketLeagueAnalyserException {
 		if (leagueMap == null || leagueMap .size() == 0) {
 			throw new CricketLeagueAnalyserException("No Cricket Data", CricketLeagueAnalyserException.ExceptionType.NO_CRICKET_DATA);
