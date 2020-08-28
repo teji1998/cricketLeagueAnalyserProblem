@@ -124,6 +124,18 @@ public class CricketLeagueAnalyserTest {
 		} catch (CricketLeagueAnalyserException e ) { }
 	}
 
+	// Test case for finding the top bowling striking rate in descending order
+	@Test
+	public void givenMostWicketsCSVFile_whenSortedByEconomyRate_shouldReturnSortedResult() {
+		try {
+			CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
+			cricketLeagueAnalyser.loadLeagueData(CricketLeagueAnalyser.CricketerSkill.BOWLING, IPL_MOST_WICKETS_CSV_FILE_PATH);
+			String sortedIPLData = cricketLeagueAnalyser.getBowlerEconomyRateWiseSortedIPLData();
+			IPLMostWicketsCSV[] iplCSV =  new Gson().fromJson(sortedIPLData, IPLMostWicketsCSV[].class);
+			Assert.assertEquals("Ben Cutting", iplCSV[0].player);
+		} catch (CricketLeagueAnalyserException e ) { }
+	}
+
 
 }
 

@@ -90,6 +90,17 @@ public class CricketLeagueAnalyser {
 		return new Gson().toJson(leagueDAOList);
 	}
 
+	public String getBowlerEconomyRateWiseSortedIPLData() throws CricketLeagueAnalyserException {
+		if (leagueMap  == null || leagueMap .size() == 0) {
+			throw new CricketLeagueAnalyserException("No Cricket Data", CricketLeagueAnalyserException.ExceptionType.NO_CRICKET_DATA);
+		}
+		Comparator<LeagueDAO> iplComparator = Comparator.comparing(iplFactSheet -> iplFactSheet.economy);
+		List<LeagueDAO> leagueDAOList = leagueMap.values().stream().collect(Collectors.toList());
+		leagueDAOList = sortingInDescendingOrder(iplComparator, leagueDAOList);
+		return new Gson().toJson(leagueDAOList);
+	}
+
+
 	public String getBowlerStrikingRateWiseSortedIPLData() throws CricketLeagueAnalyserException {
 		if (leagueMap  == null || leagueMap .size() == 0) {
 			throw new CricketLeagueAnalyserException("No Cricket Data", CricketLeagueAnalyserException.ExceptionType.NO_CRICKET_DATA);
