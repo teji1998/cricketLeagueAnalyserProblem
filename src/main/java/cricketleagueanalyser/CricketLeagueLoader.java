@@ -34,7 +34,7 @@ public class CricketLeagueLoader {
 				StreamSupport.stream(csvIterable.spliterator(), false)
 						  .map(IPLMostRunsCSV.class::cast)
 						  .forEach(iplRunsDataCSV -> leagueMap.put(iplRunsDataCSV.player, new LeagueDAO(iplRunsDataCSV)));
-			} else if (leagueClass.getName().equals("cricketleagueanalyser.IPLMostWktsCensusCSV")) {
+			} else if (leagueClass.getName().equals("cricketleagueanalyser.IPLMostWicketsCSV")) {
 				StreamSupport.stream(csvIterable.spliterator(), false)
 						  .map(IPLMostWicketsCSV.class::cast)
 						  .forEach(iplWicketsCSV -> leagueMap.put(iplWicketsCSV.player, new LeagueDAO(iplWicketsCSV)));

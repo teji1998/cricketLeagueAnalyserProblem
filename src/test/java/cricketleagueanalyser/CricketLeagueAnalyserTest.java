@@ -100,5 +100,18 @@ public class CricketLeagueAnalyserTest {
 		} catch (CricketLeagueAnalyserException e ) { }
 	}
 
+	// Test case for finding the top bowling average in descending order
+	@Test
+	public void givenMostRunsCSVFile_whenSortedByBowlingAverage_shouldReturnSortedResult() {
+		try {
+			CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
+			cricketLeagueAnalyser.loadLeagueData(CricketLeagueAnalyser.CricketerSkill.BOWLING, IPL_MOST_WICKETS_CSV_FILE_PATH);
+			String sortedIPLData = cricketLeagueAnalyser.getBowlingAverageWiseSortedIPLData();
+			IPLMostWicketsCSV[] iplCSV =  new Gson().fromJson(sortedIPLData, IPLMostWicketsCSV[].class);
+			Assert.assertEquals("Krishnappa Gowtham", iplCSV[0].player);
+		} catch (CricketLeagueAnalyserException e ) { }
+	}
+
+
 }
 
