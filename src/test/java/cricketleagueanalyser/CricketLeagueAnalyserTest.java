@@ -147,5 +147,17 @@ public class CricketLeagueAnalyserTest {
 			Assert.assertEquals("Lasith Malinga", iplCSV[0].player);
 		} catch (CricketLeagueAnalyserException e ) { }
 	}
+
+	// Test case for finding the top bowler great average with best striking rates
+	@Test
+	public void givenMostWicketsCSVFile_whenSortedByAverageWithBestStrikingRate_shouldReturnSortedResult() {
+		try {
+			CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
+			cricketLeagueAnalyser.loadLeagueData(CricketLeagueAnalyser.CricketerSkill.BOWLING, IPL_MOST_WICKETS_CSV_FILE_PATH);
+			String sortedIPLData = cricketLeagueAnalyser.getBowlersHavingGreatAverageWithBestStrikingRateWiseSortedIPLData();
+			IPLMostWicketsCSV[] iplCSV =  new Gson().fromJson(sortedIPLData, IPLMostWicketsCSV[].class);
+			Assert.assertEquals("Krishnappa Gowtham", iplCSV[0].player);
+		} catch (CricketLeagueAnalyserException e ) { }
+	}
 }
 
