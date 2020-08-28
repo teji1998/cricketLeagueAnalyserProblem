@@ -124,7 +124,7 @@ public class CricketLeagueAnalyserTest {
 		} catch (CricketLeagueAnalyserException e ) { }
 	}
 
-	// Test case for finding the top bowling striking rate in descending order
+	// Test case for finding the top bowling economy rate in descending order
 	@Test
 	public void givenMostWicketsCSVFile_whenSortedByEconomyRate_shouldReturnSortedResult() {
 		try {
@@ -136,6 +136,16 @@ public class CricketLeagueAnalyserTest {
 		} catch (CricketLeagueAnalyserException e ) { }
 	}
 
-
+	// Test case for finding the top bowler having four and five wickets with best striking rates
+	@Test
+	public void givenMostWicketsCSVFile_whenSortedByFourAndFiveWicketsWithBestStrikingRate_shouldReturnSortedResult() {
+		try {
+			CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
+			cricketLeagueAnalyser.loadLeagueData(CricketLeagueAnalyser.CricketerSkill.BOWLING, IPL_MOST_WICKETS_CSV_FILE_PATH);
+			String sortedIPLData = cricketLeagueAnalyser.getFourWicketsAndFiveWicketsWithBestStrikingRateWiseSortedIPLData();
+			IPLMostWicketsCSV[] iplCSV =  new Gson().fromJson(sortedIPLData, IPLMostWicketsCSV[].class);
+			Assert.assertEquals("Lasith Malinga", iplCSV[0].player);
+		} catch (CricketLeagueAnalyserException e ) { }
+	}
 }
 
