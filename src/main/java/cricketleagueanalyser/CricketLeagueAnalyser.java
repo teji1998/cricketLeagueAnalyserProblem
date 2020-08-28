@@ -1,7 +1,6 @@
 package cricketleagueanalyser;
 
 import com.google.gson.Gson;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -99,7 +98,6 @@ public class CricketLeagueAnalyser {
 		leagueDAOList = sortingInDescendingOrder(iplComparator, leagueDAOList);
 		return new Gson().toJson(leagueDAOList);
 	}
-
 
 	public String getBowlerStrikingRateWiseSortedIPLData() throws CricketLeagueAnalyserException {
 		if (leagueMap  == null || leagueMap .size() == 0) {
