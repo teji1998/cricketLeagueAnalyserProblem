@@ -15,12 +15,16 @@ import java.util.stream.StreamSupport;
 
 public class CricketLeagueLoader {
 
-	public Map<String, LeagueDAO> loadLeagueData(CricketLeagueAnalyser.CricketerSkill cricketerSkill, String... csvFilePath) throws CricketLeagueAnalyserException {
-		if (cricketerSkill.equals(CricketLeagueAnalyser.CricketerSkill.BATTING))
+	public Map<String, LeagueDAO> loadLeagueData(IplEnumCollection.CricketerSkill cricketerSkill, String... csvFilePath) throws CricketLeagueAnalyserException {
+		if (cricketerSkill.equals(IplEnumCollection.CricketerSkill.BATTING)) {
 			return this.loadLeagueData(IPLMostRunsCSV.class, csvFilePath);
-		else if (cricketerSkill.equals(CricketLeagueAnalyser.CricketerSkill.BATTING))
+		}
+		else if (cricketerSkill.equals(IplEnumCollection.CricketerSkill.BOWLING)) {
 			return this.loadLeagueData(IPLMostWicketsCSV.class, csvFilePath);
-		else throw new CricketLeagueAnalyserException("Invalid cricketer skill", CricketLeagueAnalyserException.ExceptionType.NOT_A_VALID_CRICKETER_SKILL);
+		}
+		else {
+			throw new CricketLeagueAnalyserException("Invalid cricketer skill", CricketLeagueAnalyserException.ExceptionType.NOT_A_VALID_CRICKETER_SKILL);
+		}
 	}
 
 	public <E> Map loadLeagueData(Class<E> leagueClass, String... csvFilePath) throws CricketLeagueAnalyserException {
@@ -33,11 +37,11 @@ public class CricketLeagueLoader {
 			if (leagueClass.getName().equals("cricketleagueanalyser.IPLMostRunsCSV")) {
 				StreamSupport.stream(csvIterable.spliterator(), false)
 						  .map(IPLMostRunsCSV.class::cast)
-						  .forEach(iplRunsDataCSV -> leagueMap.put(iplRunsDataCSV.player, new LeagueDAO(iplRunsDataCSV)));
+						  .forEach(censusCSV -> leagueMap.put(censusCSV.player, new LeagueDAO(censusCSV)));
 			} else if (leagueClass.getName().equals("cricketleagueanalyser.IPLMostWicketsCSV")) {
 				StreamSupport.stream(csvIterable.spliterator(), false)
 						  .map(IPLMostWicketsCSV.class::cast)
-						  .forEach(iplWicketsCSV -> leagueMap.put(iplWicketsCSV.player, new LeagueDAO(iplWicketsCSV)));
+						  .forEach(censusCSV -> leagueMap.put(censusCSV.player, new LeagueDAO(censusCSV)));
 			}
 			return leagueMap;
 		} catch (IOException e) {
