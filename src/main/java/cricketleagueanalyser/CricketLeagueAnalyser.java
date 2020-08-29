@@ -103,7 +103,7 @@ public class CricketLeagueAnalyser {
 		if (leagueMap == null || leagueMap .size() == 0) {
 			throw new CricketLeagueAnalyserException("No Cricket Data", CricketLeagueAnalyserException.ExceptionType.NO_CRICKET_DATA);
 		}
-		Comparator<LeagueDAO> iplComparator = Comparator.comparing(iplFactSheet -> iplFactSheet.bowlerStrikeRate);
+		Comparator<LeagueDAO> iplComparator = Comparator.comparing(iplFactSheet -> iplFactSheet.bowlingStrikeRate);
 		List<LeagueDAO> leagueDAOList = leagueMap.values().stream().collect(Collectors.toList());
 		leagueDAOList = sortingInDescendingOrder(iplComparator, leagueDAOList);
 		return new Gson().toJson(leagueDAOList);
@@ -114,7 +114,7 @@ public class CricketLeagueAnalyser {
 			throw new CricketLeagueAnalyserException("No Cricket Data", CricketLeagueAnalyserException.ExceptionType.NO_CRICKET_DATA);
 		}
 		Comparator<LeagueDAO> fourAndFiveWicketsComparator = Comparator.comparing(iplFactSheet -> iplFactSheet.fourWicket + iplFactSheet.fiveWicket);
-		Comparator<LeagueDAO> strikingRateComparator = Comparator.comparing(iplFactSheet -> iplFactSheet.bowlerStrikeRate);
+		Comparator<LeagueDAO> strikingRateComparator = Comparator.comparing(iplFactSheet -> iplFactSheet.bowlingStrikeRate);
 		List<LeagueDAO> leagueDAOList = leagueMap.values().stream().collect(Collectors.toList());
 		leagueDAOList = sortingInDescendingOrder(fourAndFiveWicketsComparator.thenComparing(strikingRateComparator), leagueDAOList);
 		return new Gson().toJson(leagueDAOList);
@@ -125,7 +125,7 @@ public class CricketLeagueAnalyser {
 			throw new CricketLeagueAnalyserException("No Cricket Data", CricketLeagueAnalyserException.ExceptionType.NO_CRICKET_DATA);
 		}
 		Comparator<LeagueDAO> averageComparator = Comparator.comparing(iplFactSheet -> iplFactSheet.bowlingAverage);
-		Comparator<LeagueDAO> strikingRateComparator = Comparator.comparing(iplFactSheet -> iplFactSheet.bowlerStrikeRate);
+		Comparator<LeagueDAO> strikingRateComparator = Comparator.comparing(iplFactSheet -> iplFactSheet.bowlingStrikeRate);
 		List<LeagueDAO> leagueDAOList = leagueMap.values().stream().collect(Collectors.toList());
 		leagueDAOList = sortingInDescendingOrder(averageComparator.thenComparing(strikingRateComparator), leagueDAOList);
 		return new Gson().toJson(leagueDAOList);

@@ -2,8 +2,7 @@ package cricketleagueanalyser;
 
 public class LeagueDAO {
 
-
-	public double bowlerStrikeRate;
+	public double bowlingStrikeRate;
 	public int fifty;
 	public int hundred;
 	public int wicket;
@@ -32,7 +31,7 @@ public class LeagueDAO {
 	public LeagueDAO(IPLMostWicketsCSV iplMostWicketsCSV){
 		player = iplMostWicketsCSV.player;
 		bowlingAverage = iplMostWicketsCSV.bowlingAverage;
-		bowlerStrikeRate = iplMostWicketsCSV.strikeRate;
+		bowlingStrikeRate = iplMostWicketsCSV.strikeRate;
 		economyRate = iplMostWicketsCSV.economyRate;
 		fourWicket = iplMostWicketsCSV.fourWicket;
 		fiveWicket = iplMostWicketsCSV.fiveWicket;

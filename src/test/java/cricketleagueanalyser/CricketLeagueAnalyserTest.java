@@ -10,7 +10,7 @@ public class CricketLeagueAnalyserTest {
 
 	//Test case to check number of record in IPL most runs CSV file
 	@Test
-	public void givenIPLMostRunsCSVFileReturnsCorrectRecords() throws CricketLeagueAnalyserException {
+	public void givenIPLMostRunsCSVFile_whenCheckedForRecords_shouldReturnCorrectRecords() throws CricketLeagueAnalyserException {
 		CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
 		int numberOfRecords = cricketLeagueAnalyser.loadLeagueData(IplEnumCollection.CricketerSkill.BATTING, IPL_MOST_RUN_CSV_FILE_PATH);
 		Assert.assertEquals(100,numberOfRecords);
@@ -18,7 +18,7 @@ public class CricketLeagueAnalyserTest {
 
 	//Test case to check number of record in IPL most wickets CSV file
 	@Test
-	public void givenIPLMostWicketsCSVFileReturnsCorrectRecords() throws CricketLeagueAnalyserException {
+	public void givenIPLMostWicketsCSVFile_whenCheckedForRecords_shouldReturnCorrectRecords() throws CricketLeagueAnalyserException {
 		CricketLeagueAnalyser cricketLeagueAnalyser = new CricketLeagueAnalyser();
 		int numOfRecords = cricketLeagueAnalyser.loadLeagueData(IplEnumCollection.CricketerSkill.BOWLING, IPL_MOST_WICKETS_CSV_FILE_PATH);
 		Assert.assertEquals(99,numOfRecords);
