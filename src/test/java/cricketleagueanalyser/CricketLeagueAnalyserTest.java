@@ -24,11 +24,25 @@ public class CricketLeagueAnalyserTest {
 		Assert.assertEquals(100,numberOfRecords);
 	}
 
-	//Test case to check number of record in IPL most wickets CSV file
+	//Test case to check number of record in IPL most runs CSV file
+	@Test
+	public void givenIPLMostRunsCSVFile_whenCheckedForRecords_shouldReturnIncorrectRecords() throws CricketLeagueAnalyserException {
+		int numberOfRecords = cricketLeagueAnalyser.loadLeagueData(IplEnumCollection.CricketerSkill.BATTING, IPL_MOST_RUN_CSV_FILE_PATH);
+		Assert.assertNotEquals(10,numberOfRecords);
+	}
+
+	//Test case to check number of correct records in IPL most wickets CSV file
 	@Test
 	public void givenIPLMostWicketsCSVFile_whenCheckedForRecords_shouldReturnCorrectRecords() throws CricketLeagueAnalyserException {
 		int numOfRecords = cricketLeagueAnalyser.loadLeagueData(IplEnumCollection.CricketerSkill.BOWLING, IPL_MOST_WICKETS_CSV_FILE_PATH);
 		Assert.assertEquals(99,numOfRecords);
+	}
+
+	//Test case to check number of incorrect records in IPL most wickets CSV file
+	@Test
+	public void givenIPLMostWicketsCSVFile_whenCheckedForRecords_shouldReturnIncorrectRecords() throws CricketLeagueAnalyserException {
+		int numOfRecords = cricketLeagueAnalyser.loadLeagueData(IplEnumCollection.CricketerSkill.BOWLING, IPL_MOST_WICKETS_CSV_FILE_PATH);
+		Assert.assertNotEquals(546,numOfRecords);
 	}
 
 	// Test case for finding the Batting average in descending order
