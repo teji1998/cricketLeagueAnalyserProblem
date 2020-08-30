@@ -3,7 +3,6 @@ package cricketleagueanalyser;
 import csvbuilder.CSVBuilderException;
 import csvbuilder.CSVBuilderFactory;
 import csvbuilder.ICSVBuilder;
-
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -28,7 +27,7 @@ public class CricketLeagueLoader {
 	}
 
 	public <E> Map loadLeagueData(Class<E> leagueClass, String... csvFilePath) throws CricketLeagueAnalyserException {
-		Map<String, LeagueDAO> leagueMap = new HashMap<>();
+	   Map<String, LeagueDAO> leagueMap = new HashMap<>();
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get(csvFilePath[0]));
 			ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
