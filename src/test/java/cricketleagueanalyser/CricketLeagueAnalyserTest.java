@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class CricketLeagueAnalyserTest {
 
@@ -11,7 +12,14 @@ public class CricketLeagueAnalyserTest {
 
 	private static final String IPL_MOST_RUN_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostRuns.csv";
 	private static final String IPL_MOST_WICKETS_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostWickets.csv";
-
+	private static final String WRONG_MOST_RUNS_CSV_FILE_PATH = "./src/main/resources/IPL2019FactsheetMostRuns.csv";
+	private static final String WRONG_MOST_RUNS_CSV_FILE_TYPE_PATH = "./src/test/resources/IPL2019FactsheetMostRuns.txt";
+	private static final String INVALID_MOST_RUNS_DELIMITER_FILE_PATH = "./src/test/resources/invalidDelimitersIPL2019FactsheetMostRuns.csv";
+	private static final String INVALID_MOST_RUNS_HEADER_FILE_PATH = "./src/test/resources/invalidHeadersIPL2019FactsheetMostRuns.csv";
+	private static final String WRONG_MOST_WICKETS_CSV_FILE_PATH = "./src/main/resources/IPL2019FactsheetMostWickets.csv";
+	private static final String WRONG_MOST_WICKETS_CSV_FILE_TYPE_PATH = "./src/test/resources/IPL2019FactsheetMostWickets.txt";
+	private static final String INVALID_MOST_WICKETS_DELIMITER_FILE_PATH = "./src/test/resources/invalidDelimitersIPL2019FactsheetMostWickets.csv";
+	private static final String INVALID_MOST_WICKETS_HEADER_FILE_PATH = "./src/test/resources/invalidHeadersIPL2019FactsheetMostWickets.csv";
 	@Before
 	public void initialSetUp() {
 		cricketLeagueAnalyser = new CricketLeagueAnalyser();
@@ -43,6 +51,102 @@ public class CricketLeagueAnalyserTest {
 	public void givenIPLMostWicketsCSVFile_whenCheckedForRecords_shouldReturnIncorrectRecords() throws CricketLeagueAnalyserException {
 		int numOfRecords = cricketLeagueAnalyser.loadLeagueData(IplEnumCollection.CricketerSkill.BOWLING, IPL_MOST_WICKETS_CSV_FILE_PATH);
 		Assert.assertNotEquals(546,numOfRecords);
+	}
+
+	//To test for a wrong file path
+	@Test
+	public void givenIPLMostRunsCSVFile_whenWithWrongPath_shouldThrowException() {
+		try {
+			ExpectedException exceptionRule = ExpectedException.none();
+			exceptionRule.expect(CricketLeagueAnalyserException.class);
+			cricketLeagueAnalyser.loadLeagueData(IplEnumCollection.CricketerSkill.BATTING, WRONG_MOST_RUNS_CSV_FILE_PATH);
+		} catch (CricketLeagueAnalyserException e) {
+			Assert.assertEquals(CricketLeagueAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+		}
+	}
+
+	//To test for a wrong file type
+	@Test
+	public void givenIPLMostRunsCSVFile_whenWithWrongFileType_shouldThrowException() {
+		try {
+			ExpectedException exceptionRule = ExpectedException.none();
+			exceptionRule.expect(CricketLeagueAnalyserException.class);
+			cricketLeagueAnalyser.loadLeagueData(IplEnumCollection.CricketerSkill.BATTING, WRONG_MOST_RUNS_CSV_FILE_TYPE_PATH);
+		} catch (CricketLeagueAnalyserException e) {
+			Assert.assertEquals(CricketLeagueAnalyserException.ExceptionType.INVALID_FILE_TYPE_OR_DELIMITER_OR_HEADER, e.type);
+		}
+	}
+
+	//To test for invalid delimiters
+	@Test
+	public void givenIPLMostRunsCSVFile_whenWithWrongDelimiters_shouldThrowException() {
+		try {
+			ExpectedException exceptionRule = ExpectedException.none();
+			exceptionRule.expect(CricketLeagueAnalyserException.class);
+			cricketLeagueAnalyser.loadLeagueData(IplEnumCollection.CricketerSkill.BATTING, INVALID_MOST_RUNS_DELIMITER_FILE_PATH);
+		} catch (CricketLeagueAnalyserException e) {
+			Assert.assertEquals(CricketLeagueAnalyserException.ExceptionType.INVALID_FILE_TYPE_OR_DELIMITER_OR_HEADER, e.type);
+		}
+	}
+
+	//To test for invalid headers
+	@Test
+	public void givenIPLMostRunsCSVFile_whenWithWrongHeaders_shouldThrowException() {
+		try {
+			ExpectedException exceptionRule = ExpectedException.none();
+			exceptionRule.expect(CricketLeagueAnalyserException.class);
+			cricketLeagueAnalyser.loadLeagueData(IplEnumCollection.CricketerSkill.BATTING, INVALID_MOST_RUNS_HEADER_FILE_PATH);
+		} catch (CricketLeagueAnalyserException e) {
+			Assert.assertEquals(CricketLeagueAnalyserException.ExceptionType.INVALID_FILE_TYPE_OR_DELIMITER_OR_HEADER, e.type);
+		}
+	}
+
+	//To test for a wrong file path
+	@Test
+	public void givenIPLMostWicketsCSVFile_whenWithWrongPath_shouldThrowException() {
+		try {
+			ExpectedException exceptionRule = ExpectedException.none();
+			exceptionRule.expect(CricketLeagueAnalyserException.class);
+			cricketLeagueAnalyser.loadLeagueData(IplEnumCollection.CricketerSkill.BOWLING, WRONG_MOST_WICKETS_CSV_FILE_PATH);
+		} catch (CricketLeagueAnalyserException e) {
+			Assert.assertEquals(CricketLeagueAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
+		}
+	}
+
+	//To test for a wrong file type
+	@Test
+	public void givenIPLMostWicketsCSVFile_whenWithWrongFileType_shouldThrowException() {
+		try {
+			ExpectedException exceptionRule = ExpectedException.none();
+			exceptionRule.expect(CricketLeagueAnalyserException.class);
+			cricketLeagueAnalyser.loadLeagueData(IplEnumCollection.CricketerSkill.BOWLING, WRONG_MOST_WICKETS_CSV_FILE_TYPE_PATH);
+		} catch (CricketLeagueAnalyserException e) {
+			Assert.assertEquals(CricketLeagueAnalyserException.ExceptionType.INVALID_FILE_TYPE_OR_DELIMITER_OR_HEADER, e.type);
+		}
+	}
+
+	//To test for invalid delimiters
+	@Test
+	public void givenIPLMostWicketsCSVFile_whenWithWrongDelimiters_shouldThrowException() {
+		try {
+			ExpectedException exceptionRule = ExpectedException.none();
+			exceptionRule.expect(CricketLeagueAnalyserException.class);
+			cricketLeagueAnalyser.loadLeagueData(IplEnumCollection.CricketerSkill.BOWLING, INVALID_MOST_WICKETS_DELIMITER_FILE_PATH);
+		} catch (CricketLeagueAnalyserException e) {
+			Assert.assertEquals(CricketLeagueAnalyserException.ExceptionType.INVALID_FILE_TYPE_OR_DELIMITER_OR_HEADER, e.type);
+		}
+	}
+
+	//To test for invalid headers
+	@Test
+	public void givenIndianCensusDataCSVFile_whenWithWrongHeaders_shouldThrowException() {
+		try {
+			ExpectedException exceptionRule = ExpectedException.none();
+			exceptionRule.expect(CricketLeagueAnalyserException.class);
+			cricketLeagueAnalyser.loadLeagueData(IplEnumCollection.CricketerSkill.BOWLING, INVALID_MOST_WICKETS_HEADER_FILE_PATH);
+		} catch (CricketLeagueAnalyserException e) {
+			Assert.assertEquals(CricketLeagueAnalyserException.ExceptionType.INVALID_FILE_TYPE_OR_DELIMITER_OR_HEADER, e.type);
+		}
 	}
 
 	// Test case for finding the Batting average in descending order
